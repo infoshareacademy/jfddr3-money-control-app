@@ -35,7 +35,7 @@ export default function Login() {
             Forgot Password?
            </div>
                 <div className='w-100 text-center mt-2' >
-             Need an account? Sing Up 
+             Need an account? Sign  Up 
            </div>
             </Card>
           
