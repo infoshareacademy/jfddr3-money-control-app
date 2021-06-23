@@ -2,7 +2,7 @@ name: Deployment
 on:
   push:
     branches:
-      - set-up-ci
+      - main
 
 jobs:
   deploy:
@@ -27,10 +27,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build page
+      - name: Build Page
         run: npm run build
 
-      - name: Deploy to gh-pages
+      - name: Deploy to GH-Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}

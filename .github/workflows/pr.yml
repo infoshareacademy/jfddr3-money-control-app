@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build image
+    name: Build Image
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,11 +27,11 @@ jobs:
       - name: Install Packages
         run: npm install
 
-      - name: Build page
+      - name: Build Page
         run: npm run build
 
   lint:
-    name: Check:Lint
+    name: Check Linting
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
@@ -45,8 +45,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run linter
-        run: npm lint:ci
+      - name: Check Formatting
+        run: npm run format:ci
+
+      - name: Check Linting
+        run: npm run lint:ci
 
   test:
     name: Test
@@ -64,5 +67,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run jest tests
-        run: npm test:ci
+      - name: Run Jest Tests
+        run: npm run test:ci
