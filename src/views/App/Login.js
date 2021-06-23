@@ -30,9 +30,7 @@ export default function Login() {
                        style={{ margin: '15px 0px'}}type='submit'> Log In
                        </Button>
                     </Form>
-                    <div className='w-100 text-center mt-2' >
-            Forgot Password?
-           </div>
+                    
                 </Card.Body>
                 </Card>
                 <div className='w-100 text-center mt-2' >
