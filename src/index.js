@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import SignIn from './views/SignIn/SignIn';
 import reportWebVitals from './reportWebVitals';
+import Dashboard from './views/Dashboard/Dashboard';
 
 ReactDOM.render(
   <React.StrictMode>
     <SignIn />
+    <Dashboard />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
