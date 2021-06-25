@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './views/App/App.js'
+import { SignIn } from './views';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 
+=======
+>>>>>>> baaeffb4d6ef05a6d4d877b1d3b1a21d1ba7095b
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SignIn />
   </React.StrictMode>,
   document.getElementById('root')
 );

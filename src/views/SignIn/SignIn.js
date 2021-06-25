@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import {
   Grid,
@@ -17,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "25ch",
       
-      
     },
   },
 }));
@@ -27,7 +28,7 @@ const SignIn = () => {
 
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    height: "50vh",
     width: 280,
     margin: "20px auto",
     
