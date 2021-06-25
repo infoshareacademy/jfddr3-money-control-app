@@ -10,23 +10,28 @@ import {
   Link
 } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+
 const StyledButton = styled(Button)`
   margin: 10px;
   background-color: #156a77;
 `;
+
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
 `;
+
 const StyledTextField = styled(TextField)`
   margin: 1rem;
   width: '25ch';
 `;
+
 const StyledPaper = styled(Paper)`
   padding: 20px;
   height: 50vh;
   width: 280px;
   margin: 20px auto;
 `;
+
 const SignIn = () => {
   const handleSubmit = e => {
     e.preventDefault();
@@ -73,4 +78,5 @@ const SignIn = () => {
     </Grid>
   );
 };
+
 export default SignIn;
