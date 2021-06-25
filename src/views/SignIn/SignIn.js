@@ -1,6 +1,5 @@
-
-
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
 import {
   Grid,
   Paper,
@@ -8,115 +7,70 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
-} from "@material-ui/core";
-import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-      
-    },
-  },
-}));
-
+  Link
+} from '@material-ui/core';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+const StyledButton = styled(Button)`
+  margin: 10px;
+  background-color: #156a77;
+`;
+const StyledAvatar = styled(Avatar)`
+  background-color: #156a77;
+`;
+const StyledTextField = styled(TextField)`
+  margin: 1rem;
+  width: '25ch';
+`;
+const StyledPaper = styled(Paper)`
+  padding: 20px;
+  height: 50vh;
+  width: 280px;
+  margin: 20px auto;
+`;
 const SignIn = () => {
-  const classes = useStyles();
-
-  const paperStyle = {
-    padding: 20,
-    height: "50vh",
-    width: 280,
-    margin: "20px auto",
-    
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(e.target.email.value);
+    console.log(e.target.password.value);
   };
-  const btnStyle = {margin:"10px",
-                    backgroundColor:"#156a77"}
-
-  const avatarStyle = { backgroundColor: "#156a77" };
-
   return (
-    <Grid className={classes.root} align="center">
-      <Paper elevation={10} style={paperStyle}>
+    <Grid align="center">
+      <StyledPaper elevation={10}>
         <Grid align="center">
-          <Avatar style={avatarStyle}>
+          <StyledAvatar>
             <LockOpenOutlinedIcon />
-          </Avatar>
-          <h2>Sign In</h2>
+          </StyledAvatar>
+          <Typography variant="h4">Sign In</Typography>
         </Grid>
-
-        <TextField
-          id="Outlined"
-          label="E-mail"
-          variant="outlined"
-          type="password"
-          color="black"
-          helperText=""
-          required
-        />
-
-        <TextField
-          id="Outlined"
-          label="Password"
-          variant="outlined"
-          color="black"
-          type="password"
-          required
-        />
-        <Grid>
-          {" "}
-          <Button type="submit" variant="contained" style={btnStyle} color="primary">
-            Sign In
-          </Button>
-          <Typography>Forgot password? 
-            <Link href="#"> Click here!</Link>
-          </Typography>
-        </Grid>
-      </Paper>
+        <form onSubmit={handleSubmit}>
+          <StyledTextField
+            id="Outlined"
+            name="email"
+            label="E-mail"
+            variant="outlined"
+            helperText=""
+            required
+          />
+          <StyledTextField
+            id="Outlined"
+            name="password"
+            label="Password"
+            variant="outlined"
+            type="password"
+            required
+          />
+          <Grid>
+            <StyledButton type="submit" variant="contained" color="primary">
+              Sign In
+            </StyledButton>
+            <Typography>
+              Forgot password?
+              <Link href="#"> Click here!</Link>
+            </Typography>
+          </Grid>
+        </form>
+      </StyledPaper>
     </Grid>
   );
 };
 export default SignIn;
-
-// export default function SignUp() {
-// const emailRef = useRef()
-// const passwordRef = useRef()
-// const passwordConfirmRef = useRef()
-
-// return (
-//         <>
-//            <Card>
-//                <Card.Body>
-//                    <h2 className='text-center mb-4'>Sign Up</h2>
-//                    <Form>
-//                        <Form.Group id='email'>
-//                            <Form.Label>E-mail</Form.Label>
-//                            <Form.Control
-//                            style={{ marginBottom: '15px'}}type="email" ref={emailRef} required />
-//                        </Form.Group>
-//                        <Form.Group id='password'>
-//                            <Form.Label>Password</Form.Label>
-//                            <Form.Control
-//                            style={{ marginBottom: '15px'}}
-//                            type="password" ref={passwordRef} required />
-//                        </Form.Group>
-//                        <Form.Group id='password-confirm'>
-//                            <Form.Label>Password Confirmation</Form.Label>
-//                            <Form.Control
-//                            type="password" ref={passwordConfirmRef} required />
-//                        </Form.Group>
-//                        <Button className="w-100"
-//                        style={{ margin: '15px 0px'}}type='submit'> Sign Up
-//                        </Button>
-//                        </Form>
-//                </Card.Body>
-//             </Card>
-//            <div className='w-100 text-center mt-2' >
-//               Already have an account? Log In
-//            </div>
-//         </>
-//     )
-// }
