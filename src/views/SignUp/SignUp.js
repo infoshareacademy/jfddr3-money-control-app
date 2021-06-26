@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-// import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
 import {
@@ -9,8 +9,7 @@ import {
   Avatar,
   TextField,
   Button,
-  Typography,
-  Link
+  Typography
 } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 
@@ -36,17 +35,10 @@ const StyledPaper = styled(Paper)`
 `;
 
 const SignUp = () => {
-  const { signup } = useAuth();
+  const { signUp } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  // const history = useHistory()
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   console.log(e.target.email.value);
-  //   console.log(e.target.password.value);
-  //   console.log(e.target.passwordConfirm.value);
-  // };
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,8 +50,8 @@ const SignUp = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(e.target.email.value, e.target.password.value);
-      // history.push('/')
+      await signUp(e.target.email.value, e.target.password.value);
+      history.push('/');
     } catch {
       setError('Failed to create an account');
       setLoading(false);
@@ -113,8 +105,7 @@ const SignUp = () => {
               Sign Up
             </StyledButton>
             <Typography>
-              Already have an account?
-              <Link> Log In</Link>
+              Already have an account? <Link to="/signin">Sign In</Link>
             </Typography>
           </Grid>
         </form>
