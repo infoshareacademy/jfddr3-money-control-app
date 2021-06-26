@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { Link, useHistory } from 'react-router-dom';
+
 import styled from 'styled-components';
 import {
   Grid,
@@ -6,8 +9,7 @@ import {
   Avatar,
   TextField,
   Button,
-  Typography,
-  Link
+  Typography
 } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 
@@ -33,11 +35,25 @@ const StyledPaper = styled(Paper)`
 `;
 
 const SignIn = () => {
-  const handleSubmit = e => {
+  const { signIn } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.email.value);
-    console.log(e.target.password.value);
-  };
+
+    try {
+      setError('');
+      setLoading(true);
+      await signIn(e.target.email.value, e.target.password.value);
+      history.push('/');
+    } catch {
+      setError('Failed to sign in');
+      setLoading(false);
+    }
+  }
+
   return (
     <Grid align="center">
       <StyledPaper elevation={10}>
@@ -47,9 +63,10 @@ const SignIn = () => {
           </StyledAvatar>
           <Typography variant="h4">Sign In</Typography>
         </Grid>
+        {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <StyledTextField
-            id="Outlined"
+            id="email"
             name="email"
             label="E-mail"
             variant="outlined"
@@ -57,7 +74,7 @@ const SignIn = () => {
             required
           />
           <StyledTextField
-            id="Outlined"
+            id="password"
             name="password"
             label="Password"
             variant="outlined"
@@ -65,12 +82,16 @@ const SignIn = () => {
             required
           />
           <Grid>
-            <StyledButton type="submit" variant="contained" color="primary">
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+            >
               Sign In
             </StyledButton>
             <Typography>
-              Forgot password?
-              <Link href="#"> Click here!</Link>
+              Need an account? <Link to="/signup">Sign Up</Link>
             </Typography>
           </Grid>
         </form>
