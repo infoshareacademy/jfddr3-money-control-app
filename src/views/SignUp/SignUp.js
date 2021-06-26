@@ -34,26 +34,32 @@ const StyledPaper = styled(Paper)`
   margin: 20px auto;
 `;
 
+const MockAlert = styled.p`
+  color: red;
+`;
+
 const SignUp = () => {
   const { signUp } = useAuth();
-  const [error, setError] = useState('');
+  const [serverError, setServerError] = useState('');
+  const [inputError, setInputError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setInputError('');
 
     if (e.target.password.value !== e.target.passwordConfirm.value) {
-      return setError('Passwords do not match');
+      return setInputError('Passwords do not match');
     }
 
     try {
-      setError('');
+      setServerError('');
       setLoading(true);
       await signUp(e.target.email.value, e.target.password.value);
       history.push('/');
     } catch {
-      setError('Failed to create an account');
+      setServerError('Failed to create an account');
       setLoading(false);
     }
   }
@@ -67,7 +73,7 @@ const SignUp = () => {
           </StyledAvatar>
           <Typography variant="h4">Sign Up</Typography>
         </Grid>
-        {error && <p>{error}</p>}
+        {serverError && <MockAlert>{serverError}</MockAlert>}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"
@@ -85,6 +91,8 @@ const SignUp = () => {
             variant="outlined"
             type="password"
             required
+            helperText={inputError}
+            error={inputError ? true : false}
           />
           <StyledTextField
             id="password-confirm"
@@ -93,6 +101,8 @@ const SignUp = () => {
             variant="outlined"
             type="password"
             required
+            helperText={inputError}
+            error={inputError ? true : false}
           />
           <Grid>
             <StyledButton
