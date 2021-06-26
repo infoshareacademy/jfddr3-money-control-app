@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { SignUp } from './views';
+import { SignUp, SignIn, MockDashboard } from './views';
 import { AuthProvider } from './contexts/AuthContext.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <SignUp />
-    </AuthProvider>
+    <Router>
+      <Switch>
+        <AuthProvider>
+          <Route exact path="/" component={MockDashboard} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
+        </AuthProvider>
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
