@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { SignIn } from './views';
+import { SignUp } from './views';
+import { AuthProvider } from './contexts/AuthContext.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignIn />
+    <AuthProvider>
+      <SignUp />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
