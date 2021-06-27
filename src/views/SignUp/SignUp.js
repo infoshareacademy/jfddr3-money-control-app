@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
-
 import styled from 'styled-components';
 import {
   Grid,
@@ -12,6 +10,7 @@ import {
   Typography
 } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import { useAuth } from '../../contexts/AuthContext';
 
 const StyledButton = styled(Button)`
   margin: 10px;

@@ -7,10 +7,6 @@ import CloseIcon from '@material-ui/icons/Close';
 export default function SimpleSnackbar({ error }) {
   const [open, setOpen] = React.useState(true);
 
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -33,7 +29,7 @@ export default function SimpleSnackbar({ error }) {
         action={
           <React.Fragment>
             <Button color="secondary" size="small" onClick={handleClose}>
-              EXIT
+              exit
             </Button>
             <IconButton
               size="small"
