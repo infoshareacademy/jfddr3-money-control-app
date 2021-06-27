@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/jfddr3-money-control-app/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/jfddr3-money-control-app/static/js/main.3176783b.chunk.js",
-    "main.js.map": "/jfddr3-money-control-app/static/js/main.3176783b.chunk.js.map",
+    "main.js": "/jfddr3-money-control-app/static/js/main.e7cc0159.chunk.js",
+    "main.js.map": "/jfddr3-money-control-app/static/js/main.e7cc0159.chunk.js.map",
     "runtime-main.js": "/jfddr3-money-control-app/static/js/runtime-main.7b67be11.js",
     "runtime-main.js.map": "/jfddr3-money-control-app/static/js/runtime-main.7b67be11.js.map",
-    "static/js/2.27f0f688.chunk.js": "/jfddr3-money-control-app/static/js/2.27f0f688.chunk.js",
-    "static/js/2.27f0f688.chunk.js.map": "/jfddr3-money-control-app/static/js/2.27f0f688.chunk.js.map",
+    "static/js/2.b634d5fa.chunk.js": "/jfddr3-money-control-app/static/js/2.b634d5fa.chunk.js",
+    "static/js/2.b634d5fa.chunk.js.map": "/jfddr3-money-control-app/static/js/2.b634d5fa.chunk.js.map",
     "static/js/3.3cc21f12.chunk.js": "/jfddr3-money-control-app/static/js/3.3cc21f12.chunk.js",
     "static/js/3.3cc21f12.chunk.js.map": "/jfddr3-money-control-app/static/js/3.3cc21f12.chunk.js.map",
     "index.html": "/jfddr3-money-control-app/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/jfddr3-money-control-app/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.27f0f688.chunk.js.LICENSE.txt": "/jfddr3-money-control-app/static/js/2.27f0f688.chunk.js.LICENSE.txt"
+    "static/js/2.b634d5fa.chunk.js.LICENSE.txt": "/jfddr3-money-control-app/static/js/2.b634d5fa.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7b67be11.js",
-    "static/js/2.27f0f688.chunk.js",
+    "static/js/2.b634d5fa.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.3176783b.chunk.js"
+    "static/js/main.e7cc0159.chunk.js"
   ]
 }
