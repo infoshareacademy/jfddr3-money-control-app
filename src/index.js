@@ -7,9 +7,11 @@ import PrivateRoute from './components/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
+const BASE_NAME = '/jfddr3-money-control-app';
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basename={BASE_NAME}>
       <Switch>
         <AuthProvider>
           <PrivateRoute exact path="/" component={MockDashboard} />
