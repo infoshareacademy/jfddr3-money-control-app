@@ -1,18 +1,17 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 // import { borders } from '@material-ui/system';
-import  styled from 'styled-components';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(2),
-    },
-  },
+      margin: theme.spacing(2)
+    }
+  }
 }));
- 
 
 const StyledContainer = styled(Container)`
   border: 1px solid #000;
@@ -20,8 +19,7 @@ const StyledContainer = styled(Container)`
   text-align: center;
 `;
 
-const StyledLogout = styled(Button)`
-`;
+const StyledLogout = styled(Button)``;
 
 const StyledBox = styled.div`
   display: flex;
@@ -37,7 +35,6 @@ const StyledBox = styled.div`
 function Dashboard() {
   const classes = useStyles();
 
-
   return (
     <StyledContainer className={classes.root}>
       <StyledBox>
@@ -45,22 +42,20 @@ function Dashboard() {
           <h3>Money Control</h3>
           <h3>welcome, Username</h3>
         </div>
-        <StyledLogout variant="contained" color="primary" disableElevation>logout</StyledLogout>
-      
+        <StyledLogout variant="contained" color="primary" disableElevation>
+          logout
+        </StyledLogout>
       </StyledBox>
       <h3>&laquo; &laquo; Month &raquo; &raquo;</h3>
       <h3> no current records</h3>
       <Button variant="contained" color="primary" disableElevation>
-     new expense
-    </Button>
-    <Button variant="contained" color="primary" disableElevation>
-     new income
-    </Button>
+        new expense
+      </Button>
+      <Button variant="contained" color="primary" disableElevation>
+        new income
+      </Button>
     </StyledContainer>
- 
- );
+  );
 }
-
-
 
 export default Dashboard;
