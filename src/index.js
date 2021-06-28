@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SignIn from './views/SignIn/SignIn';
+import { SignUp, SignIn, Dashboard } from './views';
+import { AuthProvider } from './contexts/AuthContext.js';
+import PrivateRoute from './components/PrivateRoute';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import Dashboard from './views/Dashboard/Dashboard';
+
+const BASE_NAME = '/jfddr3-money-control-app';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignIn />
-    <Dashboard />
-    
+    <Router basename={BASE_NAME}>
+      <Switch>
+        <AuthProvider>
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
+        </AuthProvider>
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

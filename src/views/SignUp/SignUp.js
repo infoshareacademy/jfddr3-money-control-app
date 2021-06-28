@@ -37,22 +37,28 @@ const MockAlert = styled.p`
   color: red;
 `;
 
-const SignIn = () => {
-  const { signIn } = useAuth();
-  const [error, setError] = useState('');
+const SignUp = () => {
+  const { signUp } = useAuth();
+  const [serverError, setServerError] = useState('');
+  const [inputError, setInputError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setInputError('');
+
+    if (e.target.password.value !== e.target.passwordConfirm.value) {
+      return setInputError('Passwords do not match');
+    }
 
     try {
-      setError('');
+      setServerError('');
       setLoading(true);
-      await signIn(e.target.email.value, e.target.password.value);
+      await signUp(e.target.email.value, e.target.password.value);
       history.push('/');
     } catch {
-      setError('Failed to sign in');
+      setServerError('Failed to create an account');
       setLoading(false);
     }
   }
@@ -64,9 +70,9 @@ const SignIn = () => {
           <StyledAvatar>
             <LockOpenOutlinedIcon />
           </StyledAvatar>
-          <Typography variant="h4">Sign In</Typography>
+          <Typography variant="h4">Sign Up</Typography>
         </Grid>
-        {error && <MockAlert>{error}</MockAlert>}
+        {serverError && <MockAlert>{serverError}</MockAlert>}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"
@@ -74,6 +80,7 @@ const SignIn = () => {
             label="E-mail"
             variant="outlined"
             helperText=""
+            type="email"
             required
           />
           <StyledTextField
@@ -83,18 +90,31 @@ const SignIn = () => {
             variant="outlined"
             type="password"
             required
+            helperText={inputError}
+            error={inputError ? true : false}
+          />
+          <StyledTextField
+            id="password-confirm"
+            name="passwordConfirm"
+            label="Password Confirmation"
+            variant="outlined"
+            type="password"
+            required
+            helperText={inputError}
+            error={inputError ? true : false}
           />
           <Grid>
             <StyledButton
               type="submit"
               variant="contained"
               color="primary"
+              onSubmit={handleSubmit}
               disabled={loading}
             >
-              Sign In
+              Sign Up
             </StyledButton>
             <Typography>
-              Need an account? <Link to="/signup">Sign Up</Link>
+              Already have an account? <Link to="/signin">Sign In</Link>
             </Typography>
           </Grid>
         </form>
@@ -103,4 +123,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
