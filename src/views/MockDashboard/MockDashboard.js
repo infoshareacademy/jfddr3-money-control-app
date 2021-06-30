@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
 import { useAuth } from '../../contexts/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { EntriesList } from '../../components/EntriesList';
-import { firestore } from '../../config/firebase';
+import { database } from '../../config/firebase';
 
 function MockDashboard() {
   const [error, setError] = useState('');
@@ -23,9 +23,7 @@ function MockDashboard() {
   }
 
   useEffect(() => {
-    // getting data from mock collection 'todos' for testing
-    const unsubscribe = firestore
-      .collection('todos')
+    const unsubscribe = database.entries
       .where('userId', '==', currentUser.uid)
       .onSnapshot(snapshot => {
         const entriesData = [];
@@ -49,6 +47,36 @@ function MockDashboard() {
         wyloguj
       </Button>
       <EntriesList entries={entries} />
+      <div>
+        <Link
+          to={{
+            pathname: '/add-entry',
+            state: {
+              type: 'income',
+              options: ['Work', 'Gifts', 'Other']
+            }
+          }}
+        >
+          Add Income
+        </Link>
+      </div>
+      <Link
+        to={{
+          pathname: '/add-entry',
+          state: {
+            type: 'expense',
+            options: [
+              'Food',
+              'Transport',
+              'Accomodation',
+              'Entertainment',
+              'Other'
+            ]
+          }
+        }}
+      >
+        Add Expense
+      </Link>
     </Container>
   );
 }
