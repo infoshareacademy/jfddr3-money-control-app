@@ -10,10 +10,21 @@ const Form = styled.form`
 `;
 
 const MockAddEntry = () => {
-  const [select, setSelect] = useState('0');
   const { currentUser } = useAuth();
   const dataLink = useLocation();
   const history = useHistory();
+  const [select, setSelect] = useState(
+    dataLink.state.operation === 'Add' ? '0' : dataLink.state.entry.category
+  );
+  const [note, setNote] = useState(
+    dataLink.state.operation === 'Add' ? '' : dataLink.state.entry.note
+  );
+  const [amount, setAmount] = useState(
+    dataLink.state.operation === 'Add' ? '' : dataLink.state.entry.amount
+  );
+  const [date, setDate] = useState(
+    dataLink.state.operation === 'Add' ? '' : dataLink.state.entry.date
+  );
 
   const handleCreate = e => {
     e.preventDefault();
@@ -31,17 +42,40 @@ const MockAddEntry = () => {
 
   return (
     <section>
-      <h3>Add {dataLink.state.type}</h3>
+      <h3>
+        {dataLink.state.operation} {dataLink.state.type}
+      </h3>
       <Form onSubmit={handleCreate}>
-        <input type="date" name="date" required />
+        <input
+          type="date"
+          name="date"
+          required
+          value={date}
+          onChange={e => {
+            setDate(e.target.value);
+          }}
+        />
         <input
           type="number"
           placeholder="Amount"
           name="amount"
           required
           min="0"
+          value={amount}
+          onChange={e => {
+            setAmount(e.target.value);
+          }}
         />
-        <input type="text" placeholder="Note" name="note" required />
+        <input
+          type="text"
+          placeholder="Note"
+          name="note"
+          required
+          value={note}
+          onChange={e => {
+            setNote(e.target.value);
+          }}
+        />
         <select
           value={select}
           onChange={e => {

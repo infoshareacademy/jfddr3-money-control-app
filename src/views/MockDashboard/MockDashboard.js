@@ -52,6 +52,7 @@ function MockDashboard() {
           to={{
             pathname: '/add-entry',
             state: {
+              operation: 'Add',
               type: 'income',
               options: ['Work', 'Gifts', 'Other']
             }
@@ -64,6 +65,7 @@ function MockDashboard() {
         to={{
           pathname: '/add-entry',
           state: {
+            operation: 'Add',
             type: 'expense',
             options: [
               'Food',
