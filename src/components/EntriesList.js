@@ -1,5 +1,4 @@
 import React from 'react';
-// import styled from 'styled-components';
 import { Entry } from './Entry';
 
 export const EntriesList = ({ entries }) => {

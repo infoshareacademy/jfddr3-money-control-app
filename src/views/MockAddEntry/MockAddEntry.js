@@ -86,6 +86,7 @@ const MockAddEntry = () => {
           type="text"
           placeholder="Note"
           name="note"
+          maxLength="20"
           required
           value={note}
           onChange={e => {

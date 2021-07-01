@@ -1,21 +1,32 @@
 import React from 'react';
 import { database } from '../config/firebase';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { IconButton, ListItem, ListItemText } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import UpdateIcon from '@material-ui/icons/Update';
+
+const AmountText = styled(ListItemText)(props => ({
+  color: props.color
+}));
 
 export const Entry = ({ entry }) => {
   const onDelete = () => {
     database.entries.doc(entry.id).delete();
   };
 
-  // console.log(database.entries.doc(entry.id))
-
   return (
-    <li>
-      [{entry.type}] [{entry.category}] [{entry.note}] [{entry.date}] [
-      {entry.amount}]
+    <ListItem divider>
+      <ListItemText>{entry.category}</ListItemText>
+      <ListItemText>{entry.note}</ListItemText>
+      <ListItemText>{entry.date}</ListItemText>
+      <AmountText color={entry.type === 'income' ? 'green' : 'red'}>
+        {entry.amount} PLN
+      </AmountText>
       {entry.type === 'income' ? (
-        <Link
+        <IconButton
+          component={Link}
+          color="primary"
           to={{
             pathname: '/add-entry',
             state: {
@@ -26,10 +37,12 @@ export const Entry = ({ entry }) => {
             }
           }}
         >
-          Update
-        </Link>
+          <UpdateIcon />
+        </IconButton>
       ) : (
-        <Link
+        <IconButton
+          component={Link}
+          color="primary"
           to={{
             pathname: '/add-entry',
             state: {
@@ -46,10 +59,12 @@ export const Entry = ({ entry }) => {
             }
           }}
         >
-          Update
-        </Link>
+          <UpdateIcon />
+        </IconButton>
       )}
-      <button onClick={onDelete}>Delete</button>
-    </li>
+      <IconButton onClick={onDelete}>
+        <HighlightOffIcon color="secondary" />
+      </IconButton>
+    </ListItem>
   );
 };
