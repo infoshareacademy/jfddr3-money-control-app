@@ -13,7 +13,7 @@ const MockAddEntry = () => {
   const { currentUser } = useAuth();
   const dataLink = useLocation();
   const history = useHistory();
-  const [select, setSelect] = useState(
+  const [category, setCategory] = useState(
     dataLink.state.operation === 'Add' ? '0' : dataLink.state.entry.category
   );
   const [note, setNote] = useState(
@@ -40,12 +40,28 @@ const MockAddEntry = () => {
     history.push('/');
   };
 
+  const handleUpdate = e => {
+    e.preventDefault();
+    database.entries.doc(dataLink.state.entry.id).set({
+      ...dataLink.state.entry,
+      category,
+      note,
+      amount,
+      date
+    });
+    history.push('/');
+  };
+
   return (
     <section>
       <h3>
         {dataLink.state.operation} {dataLink.state.type}
       </h3>
-      <Form onSubmit={handleCreate}>
+      <Form
+        onSubmit={
+          dataLink.state.operation === 'Add' ? handleCreate : handleUpdate
+        }
+      >
         <input
           type="date"
           name="date"
@@ -77,9 +93,9 @@ const MockAddEntry = () => {
           }}
         />
         <select
-          value={select}
+          value={category}
           onChange={e => {
-            setSelect(e.target.value);
+            setCategory(e.target.value);
           }}
           name="category"
           required
