@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import { database } from '../../config/firebase';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 const Form = styled.form`
   display: flex;
@@ -10,13 +10,13 @@ const Form = styled.form`
 `;
 
 const MockAddEntry = () => {
-  const [option, setOption] = useState('0');
+  const [select, setSelect] = useState('0');
   const { currentUser } = useAuth();
   const dataLink = useLocation();
+  const history = useHistory();
 
   const handleCreate = e => {
     e.preventDefault();
-
     database.entries.add({
       userId: currentUser.uid,
       createdAt: database.getCurrentTimestamp(),
@@ -26,6 +26,7 @@ const MockAddEntry = () => {
       note: e.target.note.value,
       category: e.target.category.value
     });
+    history.push('/');
   };
 
   return (
@@ -33,12 +34,18 @@ const MockAddEntry = () => {
       <h3>Add {dataLink.state.type}</h3>
       <Form onSubmit={handleCreate}>
         <input type="date" name="date" required />
-        <input type="text" placeholder="Amount" name="amount" required />
+        <input
+          type="number"
+          placeholder="Amount"
+          name="amount"
+          required
+          min="0"
+        />
         <input type="text" placeholder="Note" name="note" required />
         <select
-          value={option}
+          value={select}
           onChange={e => {
-            setOption(e.target.value);
+            setSelect(e.target.value);
           }}
           name="category"
           required
