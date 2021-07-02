@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Container, Button, Avatar } from '@material-ui/core';
-
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import { database } from '../../config/firebase';
+import { EntriesList } from '../../components/EntriesList';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -25,11 +26,10 @@ const StyledContainer = styled(Container)`
   }
   button {
     margin: 16px;
-    background-color: #156a77;
   }
 `;
 
-const StyledLogout = styled(Button)`
+const StyledButton = styled(Button)`
   background-color: #156a77;
 `;
 
@@ -44,7 +44,7 @@ const StyledBox = styled.div`
   }
 `;
 
-const StyledButtons = styled.div`
+const StyledButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -52,6 +52,7 @@ const StyledButtons = styled.div`
     flex-direction: column;
   }
 `;
+
 const MockAlert = styled.p`
   color: red;
 `;
@@ -60,6 +61,7 @@ function Dashboard() {
   const [error, setError] = useState('');
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
+  const [entries, setEntries] = useState([]);
 
   async function handleSignOut() {
     setError('');
@@ -72,40 +74,117 @@ function Dashboard() {
     }
   }
 
+  useEffect(() => {
+    const unsubscribe = database.entries
+      .where('userId', '==', currentUser.uid)
+      .onSnapshot(snapshot => {
+        const entriesData = [];
+        snapshot.forEach(doc =>
+          entriesData.push({
+            ...doc.data(),
+            id: doc.id
+          })
+        );
+        setEntries(entriesData);
+      });
+    return unsubscribe;
+  }, [currentUser.uid]);
+
   return (
     <StyledContainer>
       <StyledBox>
-        <div>
-          <StyledPageTitle>
-            <StyledAvatar>
-              <LockOpenOutlinedIcon />
-            </StyledAvatar>
-            <h3>Money Control</h3>
-          </StyledPageTitle>
-          <h3>welcome: {currentUser.email}</h3>
-          {error && <MockAlert>{error}</MockAlert>}
+        <StyledPageTitle>
+          <StyledAvatar style={{ backgroundColor: '#156a77', color: 'white' }}>
+            <LockOpenOutlinedIcon />
+          </StyledAvatar>
+          <h3 style={{ color: '#156a77' }}>Money Control</h3>
+        </StyledPageTitle>
+        <div style={{ display: 'flex' }}>
+          <StyledPageTitle>{currentUser.email}</StyledPageTitle>
+          <StyledButton
+            style={{ backgroundColor: '#156a77', color: 'white' }}
+            variant="contained"
+            color="inherit"
+          >
+            profile
+          </StyledButton>
+          <StyledButton
+            style={{ backgroundColor: '#156a77', color: 'white' }}
+            variant="contained"
+            color="inherit"
+            onClick={handleSignOut}
+          >
+            logout
+          </StyledButton>
         </div>
-        <StyledLogout
+      </StyledBox>
+      {error && <MockAlert>{error}</MockAlert>}
+      {/* div placeholder for future component */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div
+          style={{
+            width: '200px',
+            height: '200px',
+            border: '1px dashed black',
+            borderRadius: '50%'
+          }}
+        >
+          Mock Pie Chart
+        </div>
+      </div>
+      {/* div placeholder for future component */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button>prev</button>
+        <h3>Mock Current Month</h3>
+        <button>next</button>
+      </div>
+      {/* h3 placeholder for future component */}
+      <h3>Mock Balance: 0,00 PLN</h3>
+      <EntriesList entries={entries} />
+      <StyledButtonsContainer>
+        <StyledButton
+          style={{ backgroundColor: 'green' }}
           variant="contained"
           color="primary"
-          onClick={handleSignOut}
+          disableElevation
+          component={Link}
+          to={{
+            pathname: '/add-entry',
+            state: {
+              operation: 'Add',
+              type: 'income',
+              options: ['Work', 'Gifts', 'Other']
+            }
+          }}
         >
-          logout
-        </StyledLogout>
-      </StyledBox>
-      <h3>
-        {' '}
-        <p>&laquo;</p> Month <p>&raquo;</p>
-      </h3>
-      <h3> no current records</h3>
-      <StyledButtons>
-        <Button variant="contained" color="primary" disableElevation>
-          new expense
-        </Button>
-        <Button variant="contained" color="primary" disableElevation>
           new income
-        </Button>
-      </StyledButtons>
+        </StyledButton>
+        <StyledButton
+          style={{ backgroundColor: 'red' }}
+          variant="contained"
+          color="secondary"
+          disableElevation
+          component={Link}
+          to={{
+            pathname: '/add-entry',
+            state: {
+              operation: 'Add',
+              type: 'expense',
+              options: [
+                'Food',
+                'Transport',
+                'Accomodation',
+                'Entertainment',
+                'Other'
+              ]
+            }
+          }}
+        >
+          new expense
+        </StyledButton>
+      </StyledButtonsContainer>
+      {/* button placeholder for future component */}
+      <button>Mock Monthly Trends</button>
     </StyledContainer>
   );
 }
