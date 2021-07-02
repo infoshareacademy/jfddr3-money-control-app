@@ -9,7 +9,7 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const MockAddEntry = () => {
+const AddEntry = () => {
   const { currentUser } = useAuth();
   const dataLink = useLocation();
   const history = useHistory();
@@ -117,4 +117,4 @@ const MockAddEntry = () => {
   );
 };
 
-export default MockAddEntry;
+export default AddEntry;
