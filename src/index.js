@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { SignUp, SignIn, Dashboard } from './views';
+import { SignUp, SignIn, MockDashboard } from './views';
 import { AuthProvider } from './contexts/AuthContext.js';
 import PrivateRoute from './components/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -14,7 +14,7 @@ ReactDOM.render(
     <Router basename={BASE_NAME}>
       <Switch>
         <AuthProvider>
-          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/" component={MockDashboard} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
         </AuthProvider>
