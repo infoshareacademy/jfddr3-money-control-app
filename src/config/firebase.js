@@ -17,3 +17,14 @@ const app = firebase.initializeApp(firebaseConfig);
 export const firestore = app.firestore();
 export const auth = app.auth();
 export const storage = app.storage();
+
+export const database = {
+  entries: firestore.collection('entries'),
+  formatDoc: doc => {
+    return {
+      id: doc.id,
+      ...doc.data()
+    };
+  },
+  getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp
+};
