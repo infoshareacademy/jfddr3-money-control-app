@@ -99,8 +99,8 @@ function Dashboard() {
           </StyledAvatar>
           <h3 style={{ color: '#156a77' }}>Money Control</h3>
         </StyledPageTitle>
-        <StyledPageTitle>{currentUser.email}</StyledPageTitle>
         <div style={{ display: 'flex' }}>
+          <StyledPageTitle>{currentUser.email}</StyledPageTitle>
           <StyledButton
             style={{ backgroundColor: '#156a77', color: 'white' }}
             variant="contained"
