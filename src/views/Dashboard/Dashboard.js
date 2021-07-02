@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
-import { Container, Button , Avatar } from '@material-ui/core';
+import { Container, Button, Avatar } from '@material-ui/core';
 
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 
@@ -52,6 +52,9 @@ const StyledButtons = styled.div`
     flex-direction: column;
   }
 `;
+const MockAlert = styled.p`
+  color: red;
+`;
 
 function Dashboard() {
   const [error, setError] = useState('');
@@ -80,6 +83,7 @@ function Dashboard() {
             <h3>Money Control</h3>
           </StyledPageTitle>
           <h3>welcome: {currentUser.email}</h3>
+          {error && <MockAlert>{error}</MockAlert>}
         </div>
         <StyledLogout
           variant="contained"
@@ -91,7 +95,7 @@ function Dashboard() {
       </StyledBox>
       <h3>
         {' '}
-        <a href="#">&laquo;</a> Month <a href="#">&raquo;</a>
+        <p>&laquo;</p> Month <p>&raquo;</p>
       </h3>
       <h3> no current records</h3>
       <StyledButtons>
