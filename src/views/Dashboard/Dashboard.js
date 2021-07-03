@@ -93,7 +93,7 @@ function Dashboard() {
 
   return (
     <StyledContainer>
-      <StyledBox>
+      <StyledBox id="back-to-top-anchor">
         <StyledPageTitle>
           <StyledAvatar style={{ backgroundColor: '#156a77', color: 'white' }}>
             <LockOpenOutlinedIcon />
@@ -141,7 +141,6 @@ function Dashboard() {
       </div>
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
-      <EntriesList entries={entries} />
       <StyledButtonsContainer>
         <StyledButton
           style={{ backgroundColor: 'green' }}
@@ -159,6 +158,19 @@ function Dashboard() {
           }}
         >
           new income
+        </StyledButton>
+        <StyledButton
+          style={{ backgroundColor: '#156a77', color: 'white' }}
+          variant="contained"
+          color="primary"
+          disableElevation
+          component={Link}
+          to={{
+            pathname: '/trends',
+            state: { entries }
+          }}
+        >
+          trends <ShowChartIcon />
         </StyledButton>
         <StyledButton
           style={{ backgroundColor: 'red' }}
@@ -184,19 +196,7 @@ function Dashboard() {
           new expense
         </StyledButton>
       </StyledButtonsContainer>
-      <StyledButton
-        style={{ backgroundColor: '#156a77', color: 'white' }}
-        variant="contained"
-        color="primary"
-        disableElevation
-        component={Link}
-        to={{
-          pathname: '/trends',
-          state: { entries }
-        }}
-      >
-        trends <ShowChartIcon />
-      </StyledButton>
+      <EntriesList entries={entries} />
     </StyledContainer>
   );
 }
