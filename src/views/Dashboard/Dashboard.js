@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useHistory, Link } from 'react-router-dom';
 import { Container, Button, Avatar } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
 
@@ -183,8 +184,19 @@ function Dashboard() {
           new expense
         </StyledButton>
       </StyledButtonsContainer>
-      {/* button placeholder for future component */}
-      <button>Mock Monthly Trends</button>
+      <StyledButton
+        style={{ backgroundColor: '#156a77', color: 'white' }}
+        variant="contained"
+        color="primary"
+        disableElevation
+        component={Link}
+        to={{
+          pathname: '/trends',
+          state: { entries }
+        }}
+      >
+        trends <ShowChartIcon />
+      </StyledButton>
     </StyledContainer>
   );
 }
