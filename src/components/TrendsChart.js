@@ -25,8 +25,18 @@ export const TrendsChart = ({ data }) => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis />
+        <XAxis
+          dataKey="month"
+          label={{ value: 'Months', position: 'insideBottomRight', offset: 0 }}
+        />
+        <YAxis
+          label={{
+            value: 'Value (PLN)',
+            angle: -90,
+            position: 'insideLeft',
+            offset: 0
+          }}
+        />
         <Tooltip />
         <Legend verticalAlign="top" height={36} />
         <Line
