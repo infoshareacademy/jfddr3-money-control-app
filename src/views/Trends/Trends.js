@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { TrendsChart } from '../../components/TrendsChart';
+import { months } from '../../data/months';
 
 const StyledButton = styled(Button)`
   margin: 10px;
@@ -26,99 +27,49 @@ const Trends = () => {
   const dataLink = useLocation();
   const entries = dataLink.state.entries;
 
-  const months = [
-    {
-      monthLabel: 'January',
-      monthNumber: '01'
-    }
-  ];
-
-  const getMonthlyEntries = (monthName, entries) => {
+  const getMonthlyEntries = monthSequence => {
     const userData = entries.map(entry => {
       return {
         ...entry,
         dateArr: entry.date.split('-')
       };
     });
-    return userData.filter(entry => entry.dateArr[1] === monthName);
+    return userData.filter(entry => entry.dateArr[1] === monthSequence);
   };
 
-  // data for july
-  const julyEntries = getMonthlyEntries('07', entries);
-  console.log(julyEntries);
+  const getMonthlyData = (monthLabel, monthSequence) => {
+    const monthlyEntries = getMonthlyEntries(monthSequence);
 
-  // expenses for july
-  const julyExpensesList = julyEntries.filter(
-    entry => entry.type === 'expense'
-  );
-  console.log(julyExpensesList);
+    const monthlyExpensesList = monthlyEntries.filter(
+      entry => entry.type === 'expense'
+    );
+    const monthlyExpensesArr = monthlyExpensesList.map(entry => entry.amount);
+    const monthlyExpenses = monthlyExpensesArr.reduce(
+      (a, c) => parseInt(a) + parseInt(c),
+      0
+    );
 
-  const julyExpensesArr = julyExpensesList.map(entry => entry.amount);
-  console.log(julyExpensesArr);
+    const monthlyIncomesList = monthlyEntries.filter(
+      entry => entry.type === 'income'
+    );
+    const monthlyIncomesArr = monthlyIncomesList.map(entry => entry.amount);
+    const monthlyIncomes = monthlyIncomesArr.reduce(
+      (a, c) => parseInt(a) + parseInt(c),
+      0
+    );
 
-  const julyExpenses = julyExpensesArr.reduce(
-    (a, c) => parseInt(a) + parseInt(c),
-    0
-  );
-  console.log(julyExpenses);
-
-  // incomes for july
-  const julyIncomesList = julyEntries.filter(entry => entry.type === 'income');
-  console.log(julyIncomesList);
-
-  const julyIncomesArr = julyIncomesList.map(entry => entry.amount);
-  console.log(julyIncomesArr);
-
-  const julyIncomes = julyIncomesArr.reduce(
-    (a, c) => parseInt(a) + parseInt(c),
-    0
-  );
-  console.log(julyIncomes);
-
-  const julyData = {
-    month: 'July',
-    expenses: julyExpenses,
-    incomes: julyIncomes
+    return {
+      month: monthLabel,
+      expenses: monthlyExpenses,
+      incomes: monthlyIncomes
+    };
   };
-  console.log(julyData);
 
-  const mockData = [
-    {
-      month: 'January',
-      expenses: 400,
-      incomes: 2400
-    },
-    {
-      month: 'February',
-      expenses: 3000,
-      incomes: 1398
-    },
-    {
-      month: 'March',
-      expenses: 200,
-      incomes: 980
-    },
-    {
-      month: 'April',
-      expenses: 278,
-      incomes: 390
-    },
-    {
-      month: 'May',
-      expenses: 189,
-      incomes: 480
-    },
-    {
-      month: 'June',
-      expenses: 239,
-      incomes: 380
-    },
-    {
-      month: 'July',
-      expenses: julyExpenses,
-      incomes: julyIncomes
-    }
-  ];
+  const getChartData = () => {
+    return months.map(month => {
+      return getMonthlyData(month.name.slice(0, 3), month.sequence);
+    });
+  };
 
   return (
     <Grid align="center">
@@ -126,12 +77,12 @@ const Trends = () => {
         <Grid align="center">
           <StyledTypography variant="h4">Monthly Trends</StyledTypography>
         </Grid>
-        <TrendsChart data={mockData} />
+        <TrendsChart data={getChartData()} />
         <Grid>
           <StyledButton
             component={Link}
             variant="contained"
-            color="primary"
+            color="secondary"
             to="/"
           >
             back

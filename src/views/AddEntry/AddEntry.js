@@ -87,7 +87,6 @@ const AddEntry = () => {
           placeholder="Note"
           name="note"
           maxLength="20"
-          required
           value={note}
           onChange={e => {
             setNote(e.target.value);
