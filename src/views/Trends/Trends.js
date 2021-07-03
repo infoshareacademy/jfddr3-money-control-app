@@ -37,7 +37,7 @@ const Trends = () => {
     return userData.filter(entry => entry.dateArr[1] === monthSequence);
   };
 
-  const getMonthlyData = (monthLabel, monthSequence) => {
+  const getMonthlyData = (monthLabel, monthSequence, monthName) => {
     const monthlyEntries = getMonthlyEntries(monthSequence);
 
     const monthlyExpensesList = monthlyEntries.filter(
@@ -58,16 +58,20 @@ const Trends = () => {
       0
     );
 
+    const monthlyBalance = monthlyIncomes - monthlyExpenses;
+
     return {
       month: monthLabel,
       expenses: monthlyExpenses,
-      incomes: monthlyIncomes
+      incomes: monthlyIncomes,
+      name: monthName,
+      balance: monthlyBalance
     };
   };
 
   const getChartData = () => {
     return months.map(month => {
-      return getMonthlyData(month.name.slice(0, 3), month.sequence);
+      return getMonthlyData(month.name.slice(0, 3), month.sequence, month.name);
     });
   };
 

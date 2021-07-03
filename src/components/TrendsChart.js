@@ -10,6 +10,28 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active) {
+    return (
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: '5px',
+          border: '1px solid #156a77',
+          opacity: '75%'
+        }}
+      >
+        <p>{payload[0] && payload[0].payload.name}</p>
+        <p>{`incomes : ${payload[0].value} PLN`}</p>
+        <p>{`expenses : ${payload[1].value} PLN`}</p>
+        <p>{payload[0] && `balance: ${payload[0].payload.balance} PLN`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 export const TrendsChart = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -27,7 +49,7 @@ export const TrendsChart = ({ data }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="month"
-          label={{ value: 'Months', position: 'insideBottomRight', offset: 0 }}
+          label={{ value: 'Months', position: 'insideBottomRight', offset: -5 }}
         />
         <YAxis
           label={{
@@ -37,7 +59,7 @@ export const TrendsChart = ({ data }) => {
             offset: 0
           }}
         />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend verticalAlign="top" height={36} />
         <Line
           type="monotone"
