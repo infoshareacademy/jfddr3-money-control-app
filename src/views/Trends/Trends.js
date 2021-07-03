@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { TrendsChart } from '../../components/TrendsChart';
@@ -23,48 +23,100 @@ const StyledPaper = styled(Paper)`
 `;
 
 const Trends = () => {
+  const dataLink = useLocation();
+  const entries = dataLink.state.entries;
+
+  const months = [
+    {
+      monthLabel: 'January',
+      monthNumber: '01'
+    }
+  ];
+
+  const getMonthlyEntries = (monthName, entries) => {
+    const userData = entries.map(entry => {
+      return {
+        ...entry,
+        dateArr: entry.date.split('-')
+      };
+    });
+    return userData.filter(entry => entry.dateArr[1] === monthName);
+  };
+
+  // data for july
+  const julyEntries = getMonthlyEntries('07', entries);
+  console.log(julyEntries);
+
+  // expenses for july
+  const julyExpensesList = julyEntries.filter(
+    entry => entry.type === 'expense'
+  );
+  console.log(julyExpensesList);
+
+  const julyExpensesArr = julyExpensesList.map(entry => entry.amount);
+  console.log(julyExpensesArr);
+
+  const julyExpenses = julyExpensesArr.reduce(
+    (a, c) => parseInt(a) + parseInt(c),
+    0
+  );
+  console.log(julyExpenses);
+
+  // incomes for july
+  const julyIncomesList = julyEntries.filter(entry => entry.type === 'income');
+  console.log(julyIncomesList);
+
+  const julyIncomesArr = julyIncomesList.map(entry => entry.amount);
+  console.log(julyIncomesArr);
+
+  const julyIncomes = julyIncomesArr.reduce(
+    (a, c) => parseInt(a) + parseInt(c),
+    0
+  );
+  console.log(julyIncomes);
+
+  const julyData = {
+    month: 'July',
+    expenses: julyExpenses,
+    incomes: julyIncomes
+  };
+  console.log(julyData);
+
   const mockData = [
     {
       month: 'January',
-      expenses: 4000,
-      incomes: 2400,
-      amt: 2400
+      expenses: 400,
+      incomes: 2400
     },
     {
       month: 'February',
       expenses: 3000,
-      incomes: 1398,
-      amt: 2210
+      incomes: 1398
     },
     {
       month: 'March',
-      expenses: 2000,
-      incomes: 9800,
-      amt: 2290
+      expenses: 200,
+      incomes: 980
     },
     {
       month: 'April',
-      expenses: 2780,
-      incomes: 3908,
-      amt: 2000
+      expenses: 278,
+      incomes: 390
     },
     {
       month: 'May',
-      expenses: 1890,
-      incomes: 4800,
-      amt: 2181
+      expenses: 189,
+      incomes: 480
     },
     {
       month: 'June',
-      expenses: 2390,
-      incomes: 3800,
-      amt: 2500
+      expenses: 239,
+      incomes: 380
     },
     {
       month: 'July',
-      expenses: 3490,
-      incomes: 4300,
-      amt: 2100
+      expenses: julyExpenses,
+      incomes: julyIncomes
     }
   ];
 
