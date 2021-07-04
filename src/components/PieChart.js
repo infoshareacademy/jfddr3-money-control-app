@@ -1,14 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 600 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-  { name: 'Group E', value: 200 }
-];
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;
@@ -18,8 +10,7 @@ const renderCustomizedLabel = ({
   midAngle,
   innerRadius,
   outerRadius,
-  percent,
-  index
+  percent
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -37,16 +28,51 @@ const renderCustomizedLabel = ({
     </text>
   );
 };
-export default function App({ entries }) {
-  console.log('eeeee');
-  console.log(entries);
-  console.log(data);
-  let categoryUserData = entries.map(entry => ({
+export default function PieChartExpenses({ entries }) {
+  function groupCategAndSumAmounts(data, categories, reducer) {
+    function getUniqueIndexHash(row, categories) {
+      return categories.reduce((acc, curr) => acc + row[curr], '');
+    }
+
+    let groupedObj = data.reduce((acc, curr) => {
+      let currIndex = getUniqueIndexHash(curr, categories);
+
+      if (!Object.keys(acc).includes(currIndex)) {
+        acc = { ...acc, [currIndex]: [curr] };
+      } else {
+        acc = { ...acc, [currIndex]: acc[currIndex].concat(curr) };
+      }
+      return acc;
+    }, {});
+
+    let reduced = Object.values(groupedObj).map(arr => {
+      let reduceValues = arr.reduce(reducer, {});
+      let indexObj = categories.reduce((acc, curr) => {
+        acc = { ...acc, [curr]: arr[0][curr] };
+        return acc;
+      }, {});
+
+      reduceValues = { ...indexObj, ...reduceValues };
+
+      return reduceValues;
+    });
+
+    return reduced;
+  }
+  let reducer = (acc, curr) => {
+    acc.count = 1 + (acc.count || 0);
+    acc.amount = +curr.amount + (acc.amount || 0);
+    return acc;
+  };
+
+  const categoryUserData = groupCategAndSumAmounts(
+    entries,
+    ['category'],
+    reducer
+  ).map(entry => ({
     name: entry.category,
-    value: entry.amount
+    value: parseInt(entry.amount)
   }));
-  console.log('dddd');
-  console.log(entries);
 
   return (
     <PieChart width={400} height={220}>
@@ -60,7 +86,7 @@ export default function App({ entries }) {
         fill="#8884d8"
         dataKey="value"
       >
-        {data.map((entry, index) => (
+        {categoryUserData.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
