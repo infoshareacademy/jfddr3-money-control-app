@@ -23,6 +23,7 @@ const StyledTypography = styled(Typography)`
   color: #156a77;
   font-size: 18px;
   font-weight: bold;
+  width: 100px;
 `;
 
 export const MonthSwitch = ({
@@ -34,15 +35,15 @@ export const MonthSwitch = ({
     <ButtonsContainer>
       <StyledIconButton
         onClick={handleClickPrev}
-        disabled={currentMonth === 0 && true}
+        disabled={currentMonth === 1 && true}
         size="small"
       >
         <KeyboardArrowLeftOutlinedIcon fontSize="default" />
       </StyledIconButton>
-      <StyledTypography>{months[currentMonth].name}</StyledTypography>
+      <StyledTypography>{months[currentMonth - 1].name}</StyledTypography>
       <StyledIconButton
         onClick={handleClickNext}
-        disabled={currentMonth === 11 && true}
+        disabled={currentMonth === 12 && true}
         size="small"
       >
         <KeyboardArrowRightOutlinedIcon fontSize="default" />
