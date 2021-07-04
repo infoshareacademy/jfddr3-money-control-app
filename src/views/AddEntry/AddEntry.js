@@ -135,8 +135,7 @@ const AddEntry = () => {
             name="note"
             label="Note"
             variant="outlined"
-            helperText=""
-            required
+            helperText="Optional"
             value={note}
             onChange={e => {
               setNote(e.target.value);
@@ -172,7 +171,7 @@ const AddEntry = () => {
         <StyledButtonCancel
           type="submit"
           variant="contained"
-          color="red"
+          color="secondary"
           component={Link}
           to="/"
           endIcon={<DeleteIcon />}
