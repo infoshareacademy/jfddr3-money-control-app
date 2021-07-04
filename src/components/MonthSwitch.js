@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IconButton, Typography } from '@material-ui/core';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
+import KeyboardArrowLeftOutlinedIcon from '@material-ui/icons/KeyboardArrowLeftOutlined';
+import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
+import { months } from '../data/months';
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -24,14 +25,32 @@ const StyledTypography = styled(Typography)`
 `;
 
 export const MonthSwitch = () => {
+  const [currentMonth, setCurrentMonth] = useState(1);
+
+  function goToNextMonth() {
+    setCurrentMonth(month => month + 1);
+  }
+
+  function goToPreviousMonth() {
+    setCurrentMonth(month => month - 1);
+  }
+
   return (
     <ButtonsContainer>
-      <StyledIconButton>
-        <ArrowBackIosOutlinedIcon />
+      <StyledIconButton
+        onClick={goToPreviousMonth}
+        disabled={currentMonth === 0 && true}
+        size="small"
+      >
+        <KeyboardArrowLeftOutlinedIcon fontSize="default" />
       </StyledIconButton>
-      <StyledTypography>MonthName</StyledTypography>
-      <StyledIconButton>
-        <ArrowForwardIosOutlinedIcon />
+      <StyledTypography>{months[currentMonth].name}</StyledTypography>
+      <StyledIconButton
+        onClick={goToNextMonth}
+        disabled={currentMonth === 11 && true}
+        size="small"
+      >
+        <KeyboardArrowRightOutlinedIcon fontSize="default" />
       </StyledIconButton>
     </ButtonsContainer>
   );
