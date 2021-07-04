@@ -65,7 +65,8 @@ function Dashboard() {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
   const [entries, setEntries] = useState([]);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [activeFilter, setActiveFilter] = useState('all');
 
   async function handleSignOut() {
     setError('');
@@ -93,6 +94,29 @@ function Dashboard() {
       });
     return unsubscribe;
   }, [currentUser.uid]);
+
+  const getMonthlyEntries = monthNumber => {
+    const userData = entries.map(entry => {
+      return {
+        ...entry,
+        dateArr: entry.date.split('-')
+      };
+    });
+    return userData.filter(entry => parseInt(entry.dateArr[1]) === monthNumber);
+  };
+
+  // eslint-disable-next-line array-callback-return
+  const entriesToDisplay = getMonthlyEntries(currentMonth).filter(entry => {
+    if (activeFilter === 'all') {
+      return true;
+    }
+    if (activeFilter === 'incomes') {
+      return entry.type === 'income';
+    }
+    if (activeFilter === 'expenses') {
+      return entry.type === 'expense';
+    }
+  });
 
   function goToNextMonth() {
     setCurrentMonth(sequence => sequence + 1);
@@ -144,6 +168,10 @@ function Dashboard() {
           Mock Pie Chart
         </div>
       </div>
+      {/* poniższe przyciski będą częścią nowego komponentu w kolejnym tasku */}
+      <button onClick={() => setActiveFilter('all')}>All</button>
+      <button onClick={() => setActiveFilter('incomes')}>Incomes</button>
+      <button onClick={() => setActiveFilter('expenses')}>Expenses</button>
       <MonthSwitch
         currentMonth={currentMonth}
         handleClickNext={() => {
@@ -210,7 +238,7 @@ function Dashboard() {
           new expense
         </StyledButton>
       </StyledButtonsContainer>
-      <EntriesList entries={entries} />
+      <EntriesList entries={entriesToDisplay} />
       <ScrollTop />
     </StyledContainer>
   );
