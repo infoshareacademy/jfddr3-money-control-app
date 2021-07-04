@@ -7,6 +7,7 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
+import { MonthSwitch } from '../../components/MonthSwitch';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -133,12 +134,7 @@ function Dashboard() {
           Mock Pie Chart
         </div>
       </div>
-      {/* div placeholder for future component */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button>prev</button>
-        <h3>Mock Current Month</h3>
-        <button>next</button>
-      </div>
+      <MonthSwitch />
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
       <StyledButtonsContainer>
