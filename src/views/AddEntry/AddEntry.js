@@ -3,10 +3,51 @@ import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import { database } from '../../config/firebase';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Select,
+  MenuItem
+} from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledButton = styled(Button)`
+  margin: 10px;
+  background-color: #156a77;
+  margin-top: 25px;
+  :hover {
+    background-color: #13c1b6;
+  }
+`;
+const StyledButtonCancel = styled(Button)`
+  font-size: 12px;
+  color: white;
+  margin: 10px;
+  background-color: red;
+  :hover {
+    background-color: #13c1b6;
+  }
+`;
+
+const StyledTextField = styled(TextField)`
+  margin: 1rem;
+  width: '25ch';
+`;
+
+const StyledPaper = styled(Paper)`
+  padding: 20px;
+  height: 50vh;
+  width: 280px;
+  margin: 20px auto;
 `;
 
 const AddEntry = () => {
@@ -53,66 +94,93 @@ const AddEntry = () => {
   };
 
   return (
-    <section>
-      <h3>
-        {dataLink.state.operation} {dataLink.state.type}
-      </h3>
-      <Form
-        onSubmit={
-          dataLink.state.operation === 'Add' ? handleCreate : handleUpdate
-        }
-      >
-        <input
-          type="date"
-          name="date"
-          required
-          value={date}
-          onChange={e => {
-            setDate(e.target.value);
-          }}
-        />
-        <input
-          type="number"
-          placeholder="Amount"
-          name="amount"
-          required
-          min="0"
-          value={amount}
-          onChange={e => {
-            setAmount(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Note"
-          name="note"
-          maxLength="20"
-          value={note}
-          onChange={e => {
-            setNote(e.target.value);
-          }}
-        />
-        <select
-          value={category}
-          onChange={e => {
-            setCategory(e.target.value);
-          }}
-          name="category"
-          required
+    <Grid align="center">
+      <StyledPaper elevation={10}>
+        <Typography variant="h5">
+          {dataLink.state.operation} {dataLink.state.type}
+        </Typography>
+        <Form
+          onSubmit={
+            dataLink.state.operation === 'Add' ? handleCreate : handleUpdate
+          }
         >
-          <option value="0" disabled>
-            --Category--
-          </option>
-          {dataLink.state.options.map((option, key) => (
-            <option key={key} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Submit</button>
-      </Form>
-      <Link to="/">Cancel</Link>
-    </section>
+          <StyledTextField
+            type="date"
+            name="date"
+            variant="outlined"
+            helperText=""
+            required
+            value={date}
+            onChange={e => {
+              setDate(e.target.value);
+            }}
+          />
+
+          <StyledTextField
+            type="number"
+            name="amount"
+            label="Amount"
+            variant="outlined"
+            helperText="Only numbers"
+            required
+            min="0"
+            value={amount}
+            onChange={e => {
+              setAmount(e.target.value);
+            }}
+          />
+
+          <StyledTextField
+            type="text"
+            name="note"
+            label="Note"
+            variant="outlined"
+            helperText=""
+            required
+            value={note}
+            onChange={e => {
+              setNote(e.target.value);
+            }}
+          />
+
+          <Select
+            value={category}
+            onChange={e => {
+              setCategory(e.target.value);
+            }}
+            name="category"
+            required
+          >
+            <MenuItem value="0" disabled>
+              --Category--
+            </MenuItem>
+            {dataLink.state.options.map((option, key) => (
+              <MenuItem key={key} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
+          <StyledButton
+            type="submit"
+            variant="contained"
+            color="primary"
+            endIcon={<SendIcon />}
+          >
+            Submit
+          </StyledButton>
+        </Form>
+        <StyledButtonCancel
+          type="submit"
+          variant="contained"
+          color="red"
+          component={Link}
+          to="/"
+          endIcon={<DeleteIcon />}
+        >
+          Cancel
+        </StyledButtonCancel>
+      </StyledPaper>
+    </Grid>
   );
 };
 
