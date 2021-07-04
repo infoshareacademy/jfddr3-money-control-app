@@ -11,25 +11,25 @@ import {
 } from 'recharts';
 
 const CustomTooltip = ({ active, payload, label }) => {
-  if (active) {
-    return (
-      <div
-        style={{
-          backgroundColor: 'white',
-          padding: '5px',
-          border: '1px solid #156a77',
-          opacity: '75%'
-        }}
-      >
-        <p>{payload[0]?.payload.name}</p>
-        <p>{`incomes : ${payload[0].value} PLN`}</p>
-        <p>{`expenses : ${payload[1].value} PLN`}</p>
-        <p>{`balance: ${payload[0]?.payload.balance} PLN`}</p>
-      </div>
-    );
+  if (!active || !payload[0]) {
+    return null;
   }
 
-  return null;
+  return (
+    <div
+      style={{
+        backgroundColor: 'white',
+        padding: '5px',
+        border: '1px solid #156a77',
+        opacity: '75%'
+      }}
+    >
+      <p>{payload[0].payload.name}</p>
+      <p>{`incomes : ${payload[0].value} PLN`}</p>
+      <p>{`expenses : ${payload[1].value} PLN`}</p>
+      <p>{`balance: ${payload[0].payload.balance} PLN`}</p>
+    </div>
+  );
 };
 
 export const TrendsChart = ({ data }) => {
