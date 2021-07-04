@@ -13,10 +13,8 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
 import DeleteIcon from '@material-ui/icons/Delete';
-import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 
 const Form = styled.form`
   display: flex;
@@ -36,12 +34,9 @@ const StyledButtonCancel = styled(Button)`
   color: white;
   margin: 10px;
   background-color: red;
-  :hover{
-    background-color: #13C1B6;
-`;
-
-const StyledAvatar = styled(Avatar)`
-  background-color: #156a77;
+  :hover {
+    background-color: #13c1b6;
+  }
 `;
 
 const StyledTextField = styled(TextField)`
