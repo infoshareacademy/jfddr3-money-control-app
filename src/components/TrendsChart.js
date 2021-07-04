@@ -21,10 +21,10 @@ const CustomTooltip = ({ active, payload, label }) => {
           opacity: '75%'
         }}
       >
-        <p>{payload[0] && payload[0].payload.name}</p>
+        <p>{payload[0]?.payload.name}</p>
         <p>{`incomes : ${payload[0].value} PLN`}</p>
         <p>{`expenses : ${payload[1].value} PLN`}</p>
-        <p>{payload[0] && `balance: ${payload[0].payload.balance} PLN`}</p>
+        <p>{`balance: ${payload[0]?.payload.balance} PLN`}</p>
       </div>
     );
   }
