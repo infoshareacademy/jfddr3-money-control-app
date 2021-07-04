@@ -6,7 +6,6 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import {
   Grid,
   Paper,
-  Avatar,
   TextField,
   Button,
   Typography,
