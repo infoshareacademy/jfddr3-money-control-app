@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useHistory, Link } from 'react-router-dom';
 import { Container, Button, Avatar } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
 
@@ -92,7 +93,7 @@ function Dashboard() {
 
   return (
     <StyledContainer>
-      <StyledBox>
+      <StyledBox id="back-to-top-anchor">
         <StyledPageTitle>
           <StyledAvatar style={{ backgroundColor: '#156a77', color: 'white' }}>
             <LockOpenOutlinedIcon />
@@ -140,7 +141,6 @@ function Dashboard() {
       </div>
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
-      <EntriesList entries={entries} />
       <StyledButtonsContainer>
         <StyledButton
           style={{ backgroundColor: 'green' }}
@@ -158,6 +158,19 @@ function Dashboard() {
           }}
         >
           new income
+        </StyledButton>
+        <StyledButton
+          style={{ backgroundColor: '#156a77', color: 'white' }}
+          variant="contained"
+          color="primary"
+          disableElevation
+          component={Link}
+          to={{
+            pathname: '/trends',
+            state: { entries }
+          }}
+        >
+          trends <ShowChartIcon />
         </StyledButton>
         <StyledButton
           style={{ backgroundColor: 'red' }}
@@ -183,8 +196,7 @@ function Dashboard() {
           new expense
         </StyledButton>
       </StyledButtonsContainer>
-      {/* button placeholder for future component */}
-      <button>Mock Monthly Trends</button>
+      <EntriesList entries={entries} />
     </StyledContainer>
   );
 }

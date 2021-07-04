@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { SignUp, SignIn, Dashboard, AddEntry } from './views';
+import { SignUp, SignIn, Dashboard, AddEntry, Trends } from './views';
 import { AuthProvider } from './contexts/AuthContext.js';
 import PrivateRoute from './components/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -16,6 +16,7 @@ ReactDOM.render(
         <AuthProvider>
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/add-entry" component={AddEntry} />
+          <PrivateRoute exact path="/trends" component={Trends} />
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
         </AuthProvider>
