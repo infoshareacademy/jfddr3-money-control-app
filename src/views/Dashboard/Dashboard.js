@@ -7,6 +7,7 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
+import ScrollTop from '../../components/ScrollTop';
 import { MonthSwitch } from '../../components/MonthSwitch';
 
 const StyledAvatar = styled(Avatar)`
@@ -64,6 +65,7 @@ function Dashboard() {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
   const [entries, setEntries] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 
   async function handleSignOut() {
     setError('');
@@ -91,6 +93,14 @@ function Dashboard() {
       });
     return unsubscribe;
   }, [currentUser.uid]);
+
+  function goToNextMonth() {
+    setCurrentMonth(sequence => sequence + 1);
+  }
+
+  function goToPreviousMonth() {
+    setCurrentMonth(sequence => sequence - 1);
+  }
 
   return (
     <StyledContainer>
@@ -134,7 +144,15 @@ function Dashboard() {
           Mock Pie Chart
         </div>
       </div>
-      <MonthSwitch />
+      <MonthSwitch
+        currentMonth={currentMonth}
+        handleClickNext={() => {
+          goToNextMonth();
+        }}
+        handleClickPrev={() => {
+          goToPreviousMonth();
+        }}
+      />
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
       <StyledButtonsContainer>
@@ -193,6 +211,7 @@ function Dashboard() {
         </StyledButton>
       </StyledButtonsContainer>
       <EntriesList entries={entries} />
+      <ScrollTop />
     </StyledContainer>
   );
 }

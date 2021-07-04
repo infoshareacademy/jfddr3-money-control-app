@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { IconButton, Typography } from '@material-ui/core';
 import KeyboardArrowLeftOutlinedIcon from '@material-ui/icons/KeyboardArrowLeftOutlined';
@@ -22,23 +22,18 @@ const StyledIconButton = styled(IconButton)`
 const StyledTypography = styled(Typography)`
   color: #156a77;
   font-size: 18px;
+  font-weight: bold;
 `;
 
-export const MonthSwitch = () => {
-  const [currentMonth, setCurrentMonth] = useState(1);
-
-  function goToNextMonth() {
-    setCurrentMonth(month => month + 1);
-  }
-
-  function goToPreviousMonth() {
-    setCurrentMonth(month => month - 1);
-  }
-
+export const MonthSwitch = ({
+  currentMonth,
+  handleClickNext,
+  handleClickPrev
+}) => {
   return (
     <ButtonsContainer>
       <StyledIconButton
-        onClick={goToPreviousMonth}
+        onClick={handleClickPrev}
         disabled={currentMonth === 0 && true}
         size="small"
       >
@@ -46,7 +41,7 @@ export const MonthSwitch = () => {
       </StyledIconButton>
       <StyledTypography>{months[currentMonth].name}</StyledTypography>
       <StyledIconButton
-        onClick={goToNextMonth}
+        onClick={handleClickNext}
         disabled={currentMonth === 11 && true}
         size="small"
       >
