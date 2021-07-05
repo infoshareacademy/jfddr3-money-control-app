@@ -1,7 +1,25 @@
 import React from 'react';
-import { PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Legend, Cell } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = [
+  '#00D922',
+  '#0088FE',
+  '#FB1616',
+  '#9F6AFF',
+  '#FF7515',
+  '#00C49F',
+  '#FFBB28',
+  '#FF8042',
+  '#DB3E00',
+  '#FCCB00',
+  '#008B02',
+  '#006B76',
+  '#1273DE',
+  '#004DCF',
+  '#5300EB'
+];
+
+// const COLORS = [
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -75,12 +93,13 @@ export default function PieChartExpenses({ entries }) {
   }));
 
   return (
-    <PieChart width={400} height={220}>
+    <PieChart width={400} height={280}>
       <Pie
         data={categoryUserData}
         cx={200}
-        cy={100}
+        cy={120}
         labelLine={false}
+        legendType={'square'}
         label={renderCustomizedLabel}
         outerRadius={100}
         fill="#8884d8"
@@ -90,6 +109,7 @@ export default function PieChartExpenses({ entries }) {
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
+      <Legend verticalAlign="top" height={36} />
     </PieChart>
   );
 }
