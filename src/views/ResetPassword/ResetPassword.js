@@ -40,7 +40,7 @@ const MockAlert = styled.p`
   color: red;
 `;
 
-const SignIn = () => {
+const ResetPassword = () => {
   const { signIn } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ const SignIn = () => {
           <StyledAvatar>
             <LockOpenOutlinedIcon />
           </StyledAvatar>
-          <Typography variant="h4">Sign In</Typography>
+          <Typography variant="h4">Reset Password </Typography>
         </Grid>
         {error && <MockAlert>{error}</MockAlert>}
         <form onSubmit={handleSubmit}>
@@ -79,14 +79,7 @@ const SignIn = () => {
             helperText=""
             required
           />
-          <StyledTextField
-            id="password"
-            name="password"
-            label="Password"
-            variant="outlined"
-            type="password"
-            required
-          />
+
           <Grid>
             <StyledButton
               type="submit"
@@ -94,17 +87,17 @@ const SignIn = () => {
               color="primary"
               disabled={loading}
             >
-              Sign In
+              Reset Password
             </StyledButton>
             <Typography>
-              Need an account? <Link to="/signup">Sign Up</Link>{' '}
-              <Link to="/resetpassword">Forget password</Link>
+              <Link to="/">login</Link>
             </Typography>
           </Grid>
         </form>
       </StyledPaper>
+      Need an account? <Link to="/signup">Sing up</Link>
     </Grid>
   );
 };
 
-export default SignIn;
+export default ResetPassword;
