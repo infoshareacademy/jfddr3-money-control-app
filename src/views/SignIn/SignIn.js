@@ -15,6 +15,9 @@ import { useAuth } from '../../contexts/AuthContext';
 const StyledButton = styled(Button)`
   margin: 10px;
   background-color: #156a77;
+  :hover {
+    background-color: #13c1b6;
+  }
 `;
 
 const StyledAvatar = styled(Avatar)`
