@@ -106,7 +106,6 @@ function Dashboard() {
     return userData.filter(entry => parseInt(entry.dateArr[1]) === monthNumber);
   };
 
-  // eslint-disable-next-line array-callback-return
   const entriesToDisplay = getMonthlyEntries(currentMonth).filter(entry => {
     if (activeFilter === 'all') {
       return true;
@@ -117,6 +116,7 @@ function Dashboard() {
     if (activeFilter === 'expenses') {
       return entry.type === 'expense';
     }
+    return false;
   });
 
   function goToNextMonth() {
@@ -156,41 +156,8 @@ function Dashboard() {
         </div>
       </StyledBox>
       {error && <MockAlert>{error}</MockAlert>}
-      {/* div placeholder for future component */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div
-          style={{
-            width: '200px',
-            height: '200px',
-            border: '1px dashed black',
-            borderRadius: '50%'
-          }}
-        >
-          Mock Pie Chart
-        </div>
-      </div>
-      {/* poniższe przyciski będą częścią nowego komponentu w kolejnym tasku */}
-      <button onClick={() => setActiveFilter('all')}>All</button>
-      <button onClick={() => setActiveFilter('incomes')}>Incomes</button>
-      <button onClick={() => setActiveFilter('expenses')}>Expenses</button>
-      <MonthSwitch
-        currentMonth={currentMonth}
-        handleClickNext={() => {
-          goToNextMonth();
-        }}
-        handleClickPrev={() => {
-          goToPreviousMonth();
-        }}
-      />
-      <div style={{ display: 'flex', justifyContent: 'center' }} />
-
-      <PieChartExpenses entries={entries} />
-
-      {/* div placeholder for future component */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button>prev</button>
-        <h3>Mock Current Month</h3>
-        <button>next</button>
+        <PieChartExpenses entries={entriesToDisplay} />
       </div>
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
@@ -248,6 +215,21 @@ function Dashboard() {
         >
           new expense
         </StyledButton>
+      </StyledButtonsContainer>
+      <StyledButtonsContainer>
+        <MonthSwitch
+          currentMonth={currentMonth}
+          handleClickNext={() => {
+            goToNextMonth();
+          }}
+          handleClickPrev={() => {
+            goToPreviousMonth();
+          }}
+        />
+        {/* poniższe przyciski będą częścią nowego komponentu w kolejnym tasku */}
+        <button onClick={() => setActiveFilter('all')}>All</button>
+        <button onClick={() => setActiveFilter('incomes')}>Incomes</button>
+        <button onClick={() => setActiveFilter('expenses')}>Expenses</button>
       </StyledButtonsContainer>
       <EntriesList entries={entriesToDisplay} />
       <ScrollTop />
