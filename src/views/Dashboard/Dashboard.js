@@ -7,6 +7,7 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
+import PieChartExpenses from '../../components/PieChart';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -121,18 +122,10 @@ function Dashboard() {
       </StyledBox>
       {error && <MockAlert>{error}</MockAlert>}
       {/* div placeholder for future component */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div
-          style={{
-            width: '200px',
-            height: '200px',
-            border: '1px dashed black',
-            borderRadius: '50%'
-          }}
-        >
-          Mock Pie Chart
-        </div>
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }} />
+
+      <PieChartExpenses entries={entries} />
+
       {/* div placeholder for future component */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <button>prev</button>
