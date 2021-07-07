@@ -36,7 +36,7 @@ const StyledPaper = styled(Paper)`
   margin: 20px auto;
 `;
 
-const MockAlert = styled.p`
+const Alert = styled.p`
   color: red;
 `;
 
@@ -69,7 +69,7 @@ const ResetPassword = () => {
           </StyledAvatar>
           <Typography variant="h4">Reset Password </Typography>
         </Grid>
-        {error && <MockAlert>{error}</MockAlert>}
+        {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"

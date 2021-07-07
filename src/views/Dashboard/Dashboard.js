@@ -7,6 +7,8 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { database } from '../../config/firebase';
 import { EntriesList } from '../../components/EntriesList';
+import ScrollTop from '../../components/ScrollTop';
+import { MonthSwitch } from '../../components/MonthSwitch';
 import PieChartExpenses from '../../components/PieChart';
 
 const StyledAvatar = styled(Avatar)`
@@ -64,6 +66,8 @@ function Dashboard() {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
   const [entries, setEntries] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [activeFilter, setActiveFilter] = useState('all');
 
   async function handleSignOut() {
     setError('');
@@ -91,6 +95,37 @@ function Dashboard() {
       });
     return unsubscribe;
   }, [currentUser.uid]);
+
+  const getMonthlyEntries = monthNumber => {
+    const userData = entries.map(entry => {
+      return {
+        ...entry,
+        dateArr: entry.date.split('-')
+      };
+    });
+    return userData.filter(entry => parseInt(entry.dateArr[1]) === monthNumber);
+  };
+
+  const entriesToDisplay = getMonthlyEntries(currentMonth).filter(entry => {
+    if (activeFilter === 'all') {
+      return true;
+    }
+    if (activeFilter === 'incomes') {
+      return entry.type === 'income';
+    }
+    if (activeFilter === 'expenses') {
+      return entry.type === 'expense';
+    }
+    return false;
+  });
+
+  function goToNextMonth() {
+    setCurrentMonth(sequence => sequence + 1);
+  }
+
+  function goToPreviousMonth() {
+    setCurrentMonth(sequence => sequence - 1);
+  }
 
   return (
     <StyledContainer>
@@ -121,16 +156,8 @@ function Dashboard() {
         </div>
       </StyledBox>
       {error && <MockAlert>{error}</MockAlert>}
-      {/* div placeholder for future component */}
-      <div style={{ display: 'flex', justifyContent: 'center' }} />
-
-      <PieChartExpenses entries={entries} />
-
-      {/* div placeholder for future component */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button>prev</button>
-        <h3>Mock Current Month</h3>
-        <button>next</button>
+        <PieChartExpenses entries={entriesToDisplay} />
       </div>
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
@@ -189,7 +216,23 @@ function Dashboard() {
           new expense
         </StyledButton>
       </StyledButtonsContainer>
-      <EntriesList entries={entries} />
+      <StyledButtonsContainer>
+        <MonthSwitch
+          currentMonth={currentMonth}
+          handleClickNext={() => {
+            goToNextMonth();
+          }}
+          handleClickPrev={() => {
+            goToPreviousMonth();
+          }}
+        />
+        {/* poniższe przyciski będą częścią nowego komponentu w kolejnym tasku */}
+        <button onClick={() => setActiveFilter('all')}>All</button>
+        <button onClick={() => setActiveFilter('incomes')}>Incomes</button>
+        <button onClick={() => setActiveFilter('expenses')}>Expenses</button>
+      </StyledButtonsContainer>
+      <EntriesList entries={entriesToDisplay} />
+      <ScrollTop />
     </StyledContainer>
   );
 }

@@ -12,24 +12,27 @@ import {
 import { AuthProvider } from './contexts/AuthContext.js';
 import PrivateRoute from './components/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { StylesProvider } from '@material-ui/core/styles';
 import reportWebVitals from './reportWebVitals';
 
 const BASE_NAME = '/jfddr3-money-control-app';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router basename={BASE_NAME}>
-      <Switch>
-        <AuthProvider>
-          <PrivateRoute exact path="/" component={Dashboard} />
-          <PrivateRoute exact path="/add-entry" component={AddEntry} />
-          <PrivateRoute exact path="/trends" component={Trends} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/resetpassword" component={ResetPassword} />
-        </AuthProvider>
-      </Switch>
-    </Router>
+    <StylesProvider injectFirst>
+      <Router basename={BASE_NAME}>
+        <Switch>
+          <AuthProvider>
+            <PrivateRoute exact path="/" component={Dashboard} />
+            <PrivateRoute exact path="/add-entry" component={AddEntry} />
+            <PrivateRoute exact path="/trends" component={Trends} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/resetpassword" component={ResetPassword} />
+          </AuthProvider>
+        </Switch>
+      </Router>
+    </StylesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
