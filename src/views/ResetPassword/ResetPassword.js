@@ -69,7 +69,7 @@ const ResetPassword = () => {
           </StyledAvatar>
           <Typography variant="h4">Reset Password </Typography>
         </Grid>
-        {error && <p>{error}</p>}
+        {error && <Alert>{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"
