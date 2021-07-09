@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import { useAuth } from '../../contexts/AuthContext';
+import AlertSnackbar from '../../components/AlertSnackbar';
 
 const StyledButton = styled(Button)`
   margin: 10px;
@@ -34,10 +35,6 @@ const StyledPaper = styled(Paper)`
   height: 50vh;
   width: 280px;
   margin: 20px auto;
-`;
-
-const MockAlert = styled.p`
-  color: red;
 `;
 
 const SignIn = () => {
@@ -69,7 +66,7 @@ const SignIn = () => {
           </StyledAvatar>
           <Typography variant="h4">Sign In</Typography>
         </Grid>
-        {error && <MockAlert>{error}</MockAlert>}
+        {error && <AlertSnackbar error={error} />}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"

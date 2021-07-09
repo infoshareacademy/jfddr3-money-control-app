@@ -10,6 +10,7 @@ import { EntriesList } from '../../components/EntriesList';
 import ScrollTop from '../../components/ScrollTop';
 import { MonthSwitch } from '../../components/MonthSwitch';
 import PieChartExpenses from '../../components/PieChart';
+import AlertSnackbar from '../../components/AlertSnackbar';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -55,10 +56,6 @@ const StyledButtonsContainer = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`;
-
-const MockAlert = styled.p`
-  color: red;
 `;
 
 function Dashboard() {
@@ -156,7 +153,7 @@ function Dashboard() {
           </StyledButton>
         </div>
       </StyledBox>
-      {error && <MockAlert>{error}</MockAlert>}
+      {error && <AlertSnackbar error={error} />}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PieChartExpenses entries={entriesToDisplay} />
       </div>
