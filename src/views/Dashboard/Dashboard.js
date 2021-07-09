@@ -83,6 +83,7 @@ function Dashboard() {
   useEffect(() => {
     const unsubscribe = database.entries
       .where('userId', '==', currentUser.uid)
+      .orderBy('createdAt', 'desc')
       .onSnapshot(snapshot => {
         const entriesData = [];
         snapshot.forEach(doc =>
