@@ -40,7 +40,7 @@ const StyledButtonCancel = styled(Button)`
 `;
 
 const StyledTextField = styled(TextField)`
-  margin: 1rem;
+  margin-top: 1rem;
   width: 248px;
 `;
 
@@ -53,6 +53,7 @@ const StyledPaper = styled(Paper)`
 
 const StyledSelect = styled(Select)`
   width: 248px;
+  margin-top: 1rem;
 `;
 
 const AddEntry = () => {
@@ -119,6 +120,7 @@ const AddEntry = () => {
             onChange={e => {
               setDate(e.target.value);
             }}
+            style={{ marginBottom: '1rem' }}
           />
 
           <StyledTextField
