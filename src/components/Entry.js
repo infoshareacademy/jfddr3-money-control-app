@@ -20,7 +20,7 @@ export const Entry = ({ entry }) => {
       <ListItemText>{entry.category}</ListItemText>
       <ListItemText>{entry.note}</ListItemText>
       <ListItemText>{entry.date}</ListItemText>
-      <AmountText color={entry.type === 'income' ? 'green' : 'red'}>
+      <AmountText color={entry.type === 'income' ? '#29C481' : '#D1513B'}>
         {entry.amount} PLN
       </AmountText>
       {entry.type === 'income' ? (

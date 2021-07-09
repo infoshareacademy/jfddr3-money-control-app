@@ -161,7 +161,7 @@ function Dashboard() {
       <h3>Mock Balance: 0,00 PLN</h3>
       <StyledButtonsContainer>
         <StyledButton
-          style={{ backgroundColor: 'green' }}
+          style={{ backgroundColor: '#29C481' }}
           variant="contained"
           color="primary"
           disableElevation
@@ -175,7 +175,7 @@ function Dashboard() {
             }
           }}
         >
-          new income
+          add income
         </StyledButton>
         <StyledButton
           style={{ backgroundColor: '#156a77', color: 'white' }}
@@ -191,7 +191,7 @@ function Dashboard() {
           trends <ShowChartIcon />
         </StyledButton>
         <StyledButton
-          style={{ backgroundColor: 'red' }}
+          style={{ backgroundColor: '#D1513B' }}
           variant="contained"
           color="secondary"
           disableElevation
@@ -211,7 +211,7 @@ function Dashboard() {
             }
           }}
         >
-          new expense
+          add expense
         </StyledButton>
       </StyledButtonsContainer>
       <StyledButtonsContainer>
