@@ -11,6 +11,7 @@ import ScrollTop from '../../components/ScrollTop';
 import { MonthSwitch } from '../../components/MonthSwitch';
 import PieChartExpenses from '../../components/PieChart';
 import AlertSnackbar from '../../components/AlertSnackbar';
+import { TypeSwitch } from '../../components/TypeSwitch';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -224,10 +225,7 @@ function Dashboard() {
             goToPreviousMonth();
           }}
         />
-        {/* poniższe przyciski będą częścią nowego komponentu w kolejnym tasku */}
-        <button onClick={() => setActiveFilter('all')}>All</button>
-        <button onClick={() => setActiveFilter('incomes')}>Incomes</button>
-        <button onClick={() => setActiveFilter('expenses')}>Expenses</button>
+        <TypeSwitch setter={setActiveFilter} />
       </StyledButtonsContainer>
       <EntriesList entries={entriesToDisplay} />
       <ScrollTop />
