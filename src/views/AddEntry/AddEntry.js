@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const StyledButton = styled(Button)`
@@ -32,7 +33,7 @@ const StyledButtonCancel = styled(Button)`
   font-size: 12px;
   color: white;
   margin: 10px;
-  background-color: red;
+  background-color: #d1513b;
   :hover {
     background-color: #13c1b6;
   }
@@ -40,14 +41,18 @@ const StyledButtonCancel = styled(Button)`
 
 const StyledTextField = styled(TextField)`
   margin: 1rem;
-  width: '25ch';
+  width: 248px;
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
-  height: 50vh;
+  height: 50%;
   width: 280px;
   margin: 20px auto;
+`;
+
+const StyledSelect = styled(Select)`
+  width: 248px;
 `;
 
 const AddEntry = () => {
@@ -142,13 +147,14 @@ const AddEntry = () => {
             }}
           />
 
-          <Select
+          <StyledSelect
             value={category}
             onChange={e => {
               setCategory(e.target.value);
             }}
             name="category"
             required
+            variant="outlined"
           >
             <MenuItem value="0" disabled>
               --Category--
@@ -158,7 +164,7 @@ const AddEntry = () => {
                 {option}
               </MenuItem>
             ))}
-          </Select>
+          </StyledSelect>
           <StyledButton
             type="submit"
             variant="contained"
