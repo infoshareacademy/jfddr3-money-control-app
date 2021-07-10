@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   Grid,
@@ -16,6 +16,9 @@ import AlertSnackbar from '../../components/AlertSnackbar';
 const StyledButton = styled(Button)`
   margin: 10px;
   background-color: #156a77;
+  :hover {
+    background-color: #13c1b6;
+  }
 `;
 
 const StyledAvatar = styled(Avatar)`
@@ -33,28 +36,23 @@ const StyledPaper = styled(Paper)`
   margin: 20px auto;
 `;
 
-const SignUp = () => {
-  const { signUp } = useAuth();
-  const [serverError, setServerError] = useState('');
-  const [inputError, setInputError] = useState('');
+const ForgotPassword = () => {
+  const { resetPassword } = useAuth();
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setInputError('');
-
-    if (e.target.password.value !== e.target.passwordConfirm.value) {
-      return setInputError('Passwords do not match');
-    }
 
     try {
-      setServerError('');
+      setMessage('');
+      setError('');
       setLoading(true);
-      await signUp(e.target.email.value, e.target.password.value);
-      history.push('/');
+      await resetPassword(e.target.email.value);
+      setMessage('Check your inbox for further instructions');
     } catch {
-      setServerError('Failed to create an account');
+      setError('Failed to reset password');
       setLoading(false);
     }
   }
@@ -66,9 +64,10 @@ const SignUp = () => {
           <StyledAvatar>
             <LockOpenOutlinedIcon />
           </StyledAvatar>
-          <Typography variant="h4">Sign Up</Typography>
+          <Typography variant="h4">Reset Password</Typography>
         </Grid>
-        {serverError && <AlertSnackbar error={serverError} />}
+        {error && <AlertSnackbar error={error} />}
+        {message && <AlertSnackbar error={message} />}
         <form onSubmit={handleSubmit}>
           <StyledTextField
             id="email"
@@ -76,41 +75,22 @@ const SignUp = () => {
             label="E-mail"
             variant="outlined"
             helperText=""
-            type="email"
             required
-          />
-          <StyledTextField
-            id="password"
-            name="password"
-            label="Password"
-            variant="outlined"
-            type="password"
-            required
-            helperText={inputError}
-            error={inputError ? true : false}
-          />
-          <StyledTextField
-            id="password-confirm"
-            name="passwordConfirm"
-            label="Password Confirmation"
-            variant="outlined"
-            type="password"
-            required
-            helperText={inputError}
-            error={inputError ? true : false}
           />
           <Grid>
             <StyledButton
               type="submit"
               variant="contained"
               color="primary"
-              onSubmit={handleSubmit}
               disabled={loading}
             >
-              Sign Up
+              Reset Password
             </StyledButton>
             <Typography>
-              Already have an account? <Link to="/signin">Sign In</Link>
+              <Link to="/signin">Sign In</Link>
+            </Typography>
+            <Typography>
+              Need an account? <Link to="/signup">Sign Up</Link>
             </Typography>
           </Grid>
         </form>
@@ -119,4 +99,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ForgotPassword;
