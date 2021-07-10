@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IconButton, ListItem, ListItemText } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import UpdateIcon from '@material-ui/icons/Update';
+import UpdateIcon from '@material-ui/icons/Create';
 
 const AmountText = styled(ListItemText)(props => ({
   color: props.color
 }));
+
+const StyledListItemText = styled(ListItemText)`
+  flex: 1 1 0px;
+`;
 
 export const Entry = ({ entry }) => {
   const onDelete = () => {
@@ -17,10 +21,13 @@ export const Entry = ({ entry }) => {
 
   return (
     <ListItem divider>
-      <ListItemText>{entry.category}</ListItemText>
-      <ListItemText>{entry.note}</ListItemText>
-      <ListItemText>{entry.date}</ListItemText>
-      <AmountText color={entry.type === 'income' ? 'green' : 'red'}>
+      <StyledListItemText>{entry.category}</StyledListItemText>
+      <StyledListItemText>{entry.note}</StyledListItemText>
+      <StyledListItemText>{entry.date}</StyledListItemText>
+      <AmountText
+        color={entry.type === 'income' ? '#29C481' : '#D1513B'}
+        style={{ flex: '1 1 0px' }}
+      >
         {entry.amount} PLN
       </AmountText>
       {entry.type === 'income' ? (
