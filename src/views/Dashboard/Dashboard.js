@@ -27,6 +27,8 @@ const StyledContainer = styled(Container)`
   border: 1px solid #000;
   width: 50% !important;
   text-align: center;
+  display: flex;
+  flex-direction: column;
   & > * {
     margin: 2px;
   }
@@ -37,6 +39,8 @@ const StyledContainer = styled(Container)`
 
 const StyledButton = styled(Button)`
   background-color: #156a77;
+  padding-left: 30px;
+  padding-right: 30px;
 `;
 
 const StyledBox = styled.div`
@@ -52,11 +56,20 @@ const StyledBox = styled.div`
 
 const StyledButtonsContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: row;
+  width: auto;
   @media (max-width: 768px) {
     flex-direction: column;
   }
+`;
+
+const ControlPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  align-items: stretch;
+  margin: 0 auto;
 `;
 
 function Dashboard() {
@@ -160,73 +173,75 @@ function Dashboard() {
       </div>
       {/* h3 placeholder for future component */}
       <h3>Mock Balance: 0,00 PLN</h3>
-      <StyledButtonsContainer>
-        <StyledButton
-          style={{ backgroundColor: '#29C481' }}
-          variant="contained"
-          color="primary"
-          disableElevation
-          component={Link}
-          to={{
-            pathname: '/add-entry',
-            state: {
-              operation: 'Add',
-              type: 'income',
-              options: ['Work', 'Gifts', 'Other']
-            }
-          }}
-        >
-          add income
-        </StyledButton>
-        <StyledButton
-          style={{ backgroundColor: '#156a77', color: 'white' }}
-          variant="contained"
-          color="primary"
-          disableElevation
-          component={Link}
-          to={{
-            pathname: '/trends',
-            state: { entries }
-          }}
-        >
-          trends <ShowChartIcon />
-        </StyledButton>
-        <StyledButton
-          style={{ backgroundColor: '#D1513B' }}
-          variant="contained"
-          color="secondary"
-          disableElevation
-          component={Link}
-          to={{
-            pathname: '/add-entry',
-            state: {
-              operation: 'Add',
-              type: 'expense',
-              options: [
-                'Food',
-                'Transport',
-                'Accomodation',
-                'Entertainment',
-                'Other'
-              ]
-            }
-          }}
-        >
-          add expense
-        </StyledButton>
-      </StyledButtonsContainer>
-      <StyledButtonsContainer>
-        <MonthSwitch
-          currentMonth={currentMonth}
-          handleClickNext={() => {
-            goToNextMonth();
-          }}
-          handleClickPrev={() => {
-            goToPreviousMonth();
-          }}
-        />
-        <TypeSwitch setter={setActiveFilter} />
-      </StyledButtonsContainer>
+      <ControlPanel>
+        <StyledButtonsContainer>
+          <StyledButton
+            style={{ backgroundColor: '#29C481' }}
+            variant="contained"
+            color="primary"
+            disableElevation
+            component={Link}
+            to={{
+              pathname: '/add-entry',
+              state: {
+                operation: 'Add',
+                type: 'income',
+                options: ['Work', 'Gifts', 'Other']
+              }
+            }}
+          >
+            add income
+          </StyledButton>
+          <StyledButton
+            style={{ backgroundColor: '#156a77', color: 'white' }}
+            variant="contained"
+            color="primary"
+            disableElevation
+            component={Link}
+            to={{
+              pathname: '/trends',
+              state: { entries }
+            }}
+          >
+            trends <ShowChartIcon />
+          </StyledButton>
+          <StyledButton
+            style={{ backgroundColor: '#D1513B' }}
+            variant="contained"
+            color="secondary"
+            disableElevation
+            component={Link}
+            to={{
+              pathname: '/add-entry',
+              state: {
+                operation: 'Add',
+                type: 'expense',
+                options: [
+                  'Food',
+                  'Transport',
+                  'Accomodation',
+                  'Entertainment',
+                  'Other'
+                ]
+              }
+            }}
+          >
+            add expense
+          </StyledButton>
+        </StyledButtonsContainer>
+        <StyledButtonsContainer>
+          <MonthSwitch
+            currentMonth={currentMonth}
+            handleClickNext={() => {
+              goToNextMonth();
+            }}
+            handleClickPrev={() => {
+              goToPreviousMonth();
+            }}
+          />
+          <TypeSwitch setter={setActiveFilter} />
+        </StyledButtonsContainer>
+      </ControlPanel>
       <EntriesList entries={entriesToDisplay} />
       <ScrollTop />
     </StyledContainer>

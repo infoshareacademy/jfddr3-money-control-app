@@ -37,6 +37,7 @@ export const MonthSwitch = ({
         onClick={handleClickPrev}
         disabled={currentMonth === 1 && true}
         size="small"
+        style={{ marginLeft: 0 }}
       >
         <KeyboardArrowLeftOutlinedIcon fontSize="default" />
       </StyledIconButton>
