@@ -156,10 +156,15 @@ function Dashboard() {
             style={{
               backgroundColor: '#156a77',
               color: 'white',
-              marginRight: 0
+              marginRight: 0,
+              height: '36px',
+              marginTop: '16px',
+              marginLeft: '16px'
             }}
             variant="contained"
             color="inherit"
+            component={Link}
+            to="/update-profile"
           >
             profile
           </StyledButton>
