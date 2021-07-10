@@ -25,7 +25,8 @@ const StyledPageTitle = styled.div`
 `;
 
 const StyledContainer = styled(Container)`
-  border: 1px solid #000;
+  border-radius: 6px;
+  box-shadow: 0px 0px 6px 1px #156a77c7;
   width: 50% !important;
   text-align: center;
   display: flex;
