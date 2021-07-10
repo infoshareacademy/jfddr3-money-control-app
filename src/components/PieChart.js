@@ -109,7 +109,7 @@ export default function PieChartExpenses({ entries }) {
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
-      <Legend verticalAlign="top" height={36} />
+      <Legend verticalAlign="top" height={28} />
     </PieChart>
   );
 }

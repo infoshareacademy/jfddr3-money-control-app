@@ -12,6 +12,7 @@ import { MonthSwitch } from '../../components/MonthSwitch';
 import PieChartExpenses from '../../components/PieChart';
 import AlertSnackbar from '../../components/AlertSnackbar';
 import { TypeSwitch } from '../../components/TypeSwitch';
+import { BalanceCounter } from '../../components/BalanceCounter';
 
 const StyledAvatar = styled(Avatar)`
   background-color: #156a77;
@@ -151,14 +152,22 @@ function Dashboard() {
         <div style={{ display: 'flex' }}>
           <StyledPageTitle>{currentUser.email}</StyledPageTitle>
           <StyledButton
-            style={{ backgroundColor: '#156a77', color: 'white' }}
+            style={{
+              backgroundColor: '#156a77',
+              color: 'white',
+              marginRight: 0
+            }}
             variant="contained"
             color="inherit"
           >
             profile
           </StyledButton>
           <StyledButton
-            style={{ backgroundColor: '#156a77', color: 'white' }}
+            style={{
+              backgroundColor: '#156a77',
+              color: 'white',
+              marginRight: 0
+            }}
             variant="contained"
             color="inherit"
             onClick={handleSignOut}
@@ -171,8 +180,7 @@ function Dashboard() {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <PieChartExpenses entries={entriesToDisplay} />
       </div>
-      {/* h3 placeholder for future component */}
-      <h3>Mock Balance: 0,00 PLN</h3>
+      <BalanceCounter data={getMonthlyEntries(currentMonth)} />
       <ControlPanel>
         <StyledButtonsContainer>
           <StyledButton
