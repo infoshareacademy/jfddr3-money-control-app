@@ -32,7 +32,6 @@ const StyledTextField = styled(TextField)`
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
-  height: 50vh;
   width: 280px;
   margin: 20px auto;
 `;
@@ -93,6 +92,9 @@ const SignIn = () => {
             >
               Sign In
             </StyledButton>
+            <Typography>
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </Typography>
             <Typography>
               Need an account? <Link to="/signup">Sign Up</Link>
             </Typography>

@@ -7,7 +7,8 @@ import {
   Dashboard,
   AddEntry,
   Trends,
-  UpdateProfile
+  UpdateProfile,
+  ForgotPassword
 } from './views';
 import { AuthProvider } from './contexts/AuthContext.js';
 import PrivateRoute from './components/PrivateRoute';
@@ -29,6 +30,7 @@ ReactDOM.render(
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
+            <Route path="/forgot-password" component={ForgotPassword} />
           </AuthProvider>
         </Switch>
       </Router>
